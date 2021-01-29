@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
-* Студент: [Кирилл Подлужный](https://up.htmlacademy.ru/javascript/22/user/232352).
-* Наставник: `Неизвестно`.
+- Студент: [Кирилл Подлужный](https://up.htmlacademy.ru/javascript/22/user/232352).
+- Наставник: [Анастасия Шишова](https://htmlacademy.ru/profile/anashi).
 
 ---
 
