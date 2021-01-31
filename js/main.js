@@ -16,7 +16,7 @@ getRandomIntInclusive();
 let getRandomDecimalInclusive = function(min, max, decimalPlaces) {
 
   if (min >= 0 && max >= 0) {
-    let random = (max > min) ? (Math.random() * (max - min + 1) + min).toFixed(decimalPlaces) : null;
+    let random = (max > min) ? (min + Math.random() * (max - min)).toFixed(decimalPlaces) : null;
     return parseFloat(random);
   }
   return null;
