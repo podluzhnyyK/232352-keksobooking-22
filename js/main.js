@@ -10,7 +10,7 @@ let getRandomIntInclusive = function(min, max) {
   return null;
 }
 
-getRandomIntInclusive();
+getRandomIntInclusive(1, 3);
 
 //число с плавающей точкой из переданного диапазона включительно
 let getRandomDecimalInclusive = function(min, max, decimalPlaces) {
@@ -22,4 +22,4 @@ let getRandomDecimalInclusive = function(min, max, decimalPlaces) {
   return null;
 }
 
-getRandomDecimalInclusive();
+getRandomDecimalInclusive(1.3, 3.1, 1);
