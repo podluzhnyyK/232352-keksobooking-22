@@ -1,11 +1,15 @@
 //целое число из переданного диапазона включительно
-let getRandomIntInclusive = function(min, max) {
+const getRandomIntInclusive = function(min, max) {
 
-  min = Math.ceil(min);
-  max = Math.floor(max);
+  if(!isNaN(min) && !isNaN(max)) {
 
-  if (min >= 0 && max >= 0) {
-    return (max > min) ? Math.floor(Math.random() * (max - min + 1)) + min : null;
+    min = Math.ceil(min);
+    max = Math.floor(max);
+
+    if (min >= 0 && max >= 0) {
+      return (max > min) ? Math.floor(Math.random() * (max - min + 1)) + min : min;
+    }
+    return null;
   }
   return null;
 }
@@ -13,11 +17,15 @@ let getRandomIntInclusive = function(min, max) {
 getRandomIntInclusive(1, 3);
 
 //число с плавающей точкой из переданного диапазона включительно
-let getRandomDecimalInclusive = function(min, max, decimalPlaces) {
+const getRandomDecimalInclusive = function(min, max, decimalPlaces) {
 
-  if (min >= 0 && max >= 0) {
-    let random = (max > min) ? (min + Math.random() * (max - min)).toFixed(decimalPlaces) : null;
-    return parseFloat(random);
+  if(!isNaN(min) && !isNaN(max) && !isNaN(decimalPlaces)) {
+
+    if (min >= 0 && max >= 0) {
+      let random = (max > min) ? (min + Math.random() * (max - min)).toFixed(decimalPlaces) : min;
+      return parseFloat(random);
+    }
+    return null;
   }
   return null;
 }
