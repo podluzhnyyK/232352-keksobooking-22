@@ -14,8 +14,6 @@ const getRandomIntInclusive = function(min, max) {
   return null;
 }
 
-getRandomIntInclusive(1, 3);
-
 //число с плавающей точкой из переданного диапазона включительно
 const getRandomDecimalInclusive = function(min, max, decimalPlaces) {
 
@@ -29,9 +27,6 @@ const getRandomDecimalInclusive = function(min, max, decimalPlaces) {
   }
   return null;
 }
-
-getRandomDecimalInclusive(1.3, 3.1, 1);
-
 
 const avatar = [
   'img/avatars/user01.png',
@@ -105,29 +100,18 @@ const getRandomArrayElement = (elemets) => {
   return elemets[getRandomIntInclusive(0 , elemets.length - 1)];
 };
 
+//Набираем в массив случайное количество элементов
+const getRandomArrayIndicators = (elemets) => {
+  let randomArry = [];
+  for( let i = 0; i < elemets.length -1; i += 1) {
+    if (getRandomIntInclusive(0, 1) == true) {
+      randomArry.push(elemets[i]);
+    }
+  }
+  return randomArry;
+};
+
 const apartmentDeals = () => {
-
-  //Набираем в массив случайное количество элементов
-  const randomFeatures = [];
-  const randomFeaturesIndicators = () => {
-    for( let i = 0; i < features.length; i += 1) {
-      if (getRandomIntInclusive(0, 1) == true) {
-        randomFeatures.push(features[i]);
-      }
-    }
-    return randomFeatures;
-  };
-
-  const randomPhotos = [];
-  const randomPhotosIndicators = () => {
-    for( let i = 0; i < photos.length; i += 1) {
-      if (getRandomIntInclusive(0, 1) == true) {
-        randomPhotos.push(photos[i]);
-      }
-    }
-    return randomPhotos;
-  };
-
   return [
     {
       author : {
@@ -143,9 +127,9 @@ const apartmentDeals = () => {
         guests : getRandomArrayElement(guests),
         checkin : getRandomArrayElement(checkin),
         checkout : getRandomArrayElement(checkout),
-        features : randomFeaturesIndicators(),
+        features : getRandomArrayIndicators(features),
         description : description,
-        photos : randomPhotosIndicators(),
+        photos : getRandomArrayIndicators(photos),
       },
 
       location : {
