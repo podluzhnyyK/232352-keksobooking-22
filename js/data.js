@@ -68,7 +68,7 @@ const photos = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ]
 
-const apartmentDeals = () => {
+const generateDeal = () => {
   return [
     {
       author : {
@@ -97,4 +97,4 @@ const apartmentDeals = () => {
   ];
 };
 
-export {apartmentDeals};
+export {generateDeal};

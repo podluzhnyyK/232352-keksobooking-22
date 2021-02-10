@@ -1,5 +1,7 @@
-import {apartmentDeals} from './data.js';
+import {generateDeal} from './data.js';
 
-const DEALS_COUNT = new Array(10).fill(null).map(() => apartmentDeals());
 
-DEALS_COUNT; //чтобы небыло ошибки в файле
+const DEALS_COUNT = 10;
+const similarDeals  = new Array(DEALS_COUNT).fill(null).map(() => generateDeal());
+
+similarDeals ; //чтобы небыло ошибки в файле
