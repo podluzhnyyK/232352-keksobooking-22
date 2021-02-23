@@ -1,7 +1,3 @@
-import {generateDeal} from './data.js';
+import {similarListElement, similarListFragment} from './ads.js';
 
-
-const DEALS_COUNT = 10;
-const similarDeals  = new Array(DEALS_COUNT).fill(null).map(() => generateDeal());
-
-similarDeals ; //чтобы небыло ошибки в файле
+similarListElement.appendChild(similarListFragment);
