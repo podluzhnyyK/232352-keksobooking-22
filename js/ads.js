@@ -12,7 +12,20 @@ similarCards.forEach(([{author, offer}]) => {
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
   cardElement.querySelector('.popup__text--price').textContent = offer.price.concat(' ₽/ночь');
-  cardElement.querySelector('.popup__type').textContent = offer.type;
+
+  const getTransferAccommodation = function (params) {
+    if (params == 'flat') {
+      return 'Квартира'
+    } else if (params == 'bungalow') {
+      return 'Бунгало'
+    } else if (params == 'house') {
+      return 'Дом'
+    } else if (params == 'palace') {
+      return 'Дворец'
+    }
+  }
+  cardElement.querySelector('.popup__type').textContent = getTransferAccommodation(offer.type);
+
   cardElement.querySelector('.popup__text--capacity').textContent = offer.rooms.concat(' комнаты для ', offer.guests, ' гостей');
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после '.concat(offer.checkin, ' выезд до ', offer.checkout);
   cardElement.querySelector('.popup__description').textContent = offer.description;
