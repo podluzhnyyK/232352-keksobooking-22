@@ -1,3 +1,6 @@
-import {similarListElement, similarListFragment} from './ads.js';
+import {showOffers} from './offers.js';
+import {generateDeals} from './data.js';
 
-similarListElement.appendChild(similarListFragment);
+const deals = generateDeals()
+
+showOffers(deals);

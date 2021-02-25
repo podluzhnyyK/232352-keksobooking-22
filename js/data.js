@@ -98,6 +98,6 @@ const generateDeal = () => {
 };
 
 const DEALS_COUNT = 10;
-const similarDeals = () => new Array(DEALS_COUNT).fill(null).map(() => generateDeal());
+const generateDeals = () => new Array(DEALS_COUNT).fill(null).map(() => generateDeal());
 
-export {similarDeals};
+export {generateDeals};
