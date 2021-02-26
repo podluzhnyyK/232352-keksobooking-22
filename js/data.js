@@ -68,33 +68,34 @@ const photos = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ]
 
-const generateDeal = () => {
-  return [
-    {
-      author : {
-        avatar : getRandomArrayElement(avatar),
-      },
-
-      offer : {
-        title : title,
-        address : [location.x, location.y],
-        price : getRandomArrayElement(price),
-        type : getRandomArrayElement(type),
-        rooms : getRandomArrayElement(rooms),
-        guests : getRandomArrayElement(guests),
-        checkin : getRandomArrayElement(checkin),
-        checkout : getRandomArrayElement(checkout),
-        features : getRandomArrayIndicators(features),
-        description : description,
-        photos : getRandomArrayIndicators(photos),
-      },
-
-      location : {
-        x : getRandomDecimalInclusive(35.65000, 35.70000, 5),
-        y : getRandomDecimalInclusive(139.70000, 139.80000, 5),
-      },
+const generateDeal = function () {
+  return {
+    author : {
+      avatar : getRandomArrayElement(avatar),
     },
-  ];
+
+    offer : {
+      title : title,
+      address : [location.x, location.y],
+      price : getRandomArrayElement(price),
+      type : getRandomArrayElement(type),
+      rooms : getRandomArrayElement(rooms),
+      guests : getRandomArrayElement(guests),
+      checkin : getRandomArrayElement(checkin),
+      checkout : getRandomArrayElement(checkout),
+      features : getRandomArrayIndicators(features),
+      description : description,
+      photos : getRandomArrayIndicators(photos),
+    },
+
+    location : {
+      x : getRandomDecimalInclusive(35.65000, 35.70000, 5),
+      y : getRandomDecimalInclusive(139.70000, 139.80000, 5),
+    },
+  }
 };
 
-export {generateDeal};
+const DEALS_COUNT = 10;
+const generateDeals = () => new Array(DEALS_COUNT).fill(null).map(() => generateDeal());
+
+export {generateDeals};

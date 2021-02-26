@@ -1,7 +1,6 @@
-import {generateDeal} from './data.js';
+import {showOffers} from './offers.js';
+import {generateDeals} from './data.js';
 
+const deals = generateDeals()
 
-const DEALS_COUNT = 10;
-const similarDeals  = new Array(DEALS_COUNT).fill(null).map(() => generateDeal());
-
-similarDeals ; //чтобы небыло ошибки в файле
+showOffers(deals);
