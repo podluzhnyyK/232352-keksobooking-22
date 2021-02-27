@@ -89,8 +89,8 @@ const generateDeal = function () {
     },
 
     location : {
-      x : getRandomDecimalInclusive(35.65000, 35.70000, 5),
-      y : getRandomDecimalInclusive(139.70000, 139.80000, 5),
+      lat : getRandomDecimalInclusive(35.65000, 35.70000, 5),
+      lng : getRandomDecimalInclusive(139.70000, 139.80000, 5),
     },
   }
 };

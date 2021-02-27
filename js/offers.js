@@ -57,10 +57,10 @@ const showOffers = function (arrayCards) {
     setupFeatures(cardElement.querySelector('.popup__features'), offer);
     setupPhotos(cardElement.querySelector('.popup__photos'), offer);
 
-    similarListFragment.appendChild(cardElement);
+    //similarListFragment.appendChild(cardElement);
   });
 
-  similarListElement.appendChild(similarListFragment);
+  //similarListElement.appendChild(similarListFragment);
 }
 
 export {showOffers};
