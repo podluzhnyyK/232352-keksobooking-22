@@ -1,6 +1,7 @@
-import {showOffers} from './offers.js';
-import {generateDeals} from './data.js';
+import {disabledForm} from './disabled.js';
+import {activeState} from './map.js';
 
-const deals = generateDeals()
+disabledForm(document.querySelector('.ad-form'));
+disabledForm(document.querySelector('.map__filters'));
 
-showOffers(deals);
+activeState('map-canvas');

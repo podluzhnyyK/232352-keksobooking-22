@@ -1,7 +1,4 @@
 
-const similarListElement = document.querySelector('.map__canvas');
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-
 //Заменяем тип жилья из массива на текст
 const stringifyOfferType = function (params) {
   if (params == 'flat') {
@@ -40,27 +37,4 @@ const setupPhotos = function (params, key) {
   }
 }
 
-const showOffers = function (arrayCards) {
-  const similarListFragment = document.createDocumentFragment();
-
-  arrayCards.forEach(({author, offer}) => {
-    const cardElement = cardTemplate.cloneNode(true);
-
-    cardElement.querySelector('.popup__avatar').src = author.avatar;
-    cardElement.querySelector('.popup__title').textContent = offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = offer.address;
-    cardElement.querySelector('.popup__text--price').textContent = offer.price.concat(' ₽/ночь');
-    cardElement.querySelector('.popup__type').textContent = stringifyOfferType(offer.type);
-    cardElement.querySelector('.popup__text--capacity').textContent = offer.rooms.concat(' комнаты для ', offer.guests, ' гостей');
-    cardElement.querySelector('.popup__text--time').textContent = 'Заезд после '.concat(offer.checkin, ' выезд до ', offer.checkout);
-    cardElement.querySelector('.popup__description').textContent = offer.description;
-    setupFeatures(cardElement.querySelector('.popup__features'), offer);
-    setupPhotos(cardElement.querySelector('.popup__photos'), offer);
-
-    similarListFragment.appendChild(cardElement);
-  });
-
-  similarListElement.appendChild(similarListFragment);
-}
-
-export {showOffers};
+export {stringifyOfferType, setupFeatures, setupPhotos};
