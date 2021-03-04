@@ -43,5 +43,9 @@ const getRandomArrayIndicators = (elemets) => {
   return randomArry;
 };
 
-export {getRandomIntInclusive, getRandomDecimalInclusive, getRandomArrayElement, getRandomArrayIndicators};
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc' || evt.code === 27;
+};
+
+export {getRandomIntInclusive, getRandomDecimalInclusive, getRandomArrayElement, getRandomArrayIndicators, isEscEvent};
 

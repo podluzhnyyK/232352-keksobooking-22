@@ -1,9 +1,10 @@
 import {includedForm} from './included.js';
-import {generateDeals} from './data.js';
+import {formsWork} from './form.js';
 import {stringifyOfferType, setupFeatures, setupPhotos} from './offers.js';
 
+let L = window.L;
 const activeState = function name(params) {
-  const map = L.map(params)
+  const map = L.map('map-canvas')
     .setView({
       lat: 35.652832,
       lng: 139.839478,
@@ -45,30 +46,66 @@ const activeState = function name(params) {
     address.value = evt.target.getLatLng();
   });
 
-  //
-  const createCustomPopup = (point) => {
-    const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
-    const popupElement = balloonTemplate.cloneNode(true);
+  //заполняем балун
+  params.forEach(({author, offer, location}) => {
 
-    point.forEach(({author, offer}) => {
+    const createCustomPopup = () => {
+      const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
+      const cardElement = balloonTemplate.cloneNode(true);
 
-      popupElement.querySelector('.popup__avatar').src = author.avatar;
-      popupElement.querySelector('.popup__title').textContent = offer.title;
-      popupElement.querySelector('.popup__text--address').textContent = offer.address;
-      popupElement.querySelector('.popup__text--price').textContent = offer.price.concat(' ₽/ночь');
-      popupElement.querySelector('.popup__type').textContent = stringifyOfferType(offer.type);
-      popupElement.querySelector('.popup__text--capacity').textContent = offer.rooms.concat(' комнаты для ', offer.guests, ' гостей');
-      popupElement.querySelector('.popup__text--time').textContent = 'Заезд после '.concat(offer.checkin, ' выезд до ', offer.checkout);
-      popupElement.querySelector('.popup__description').textContent = offer.description;
-      setupFeatures(popupElement.querySelector('.popup__features'), offer);
-      setupPhotos(popupElement.querySelector('.popup__photos'), offer);
+      const offerType = stringifyOfferType(offer.type);
+      cardElement.querySelector('.popup__type').textContent = offerType;
 
-    });
+      if (author.avatar) {
+        cardElement.querySelector('.popup__avatar').src = author.avatar;
+      } else {
+        cardElement.querySelector('.popup__avatar').classList.add('hidden');
+      }
+      if (offer.title) {
+        cardElement.querySelector('.popup__title').textContent = offer.title;
+      } else {
+        cardElement.querySelector('.popup__title').classList.add('hidden');
+      }
+      if (offer.address) {
+        cardElement.querySelector('.popup__text--address').textContent = offer.address;
+      } else {
+        cardElement.querySelector('.popup__text--address').classList.add('hidden');
+      }
+      if (offer.price) {
+        cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
+      } else {
+        cardElement.querySelector('.popup__text--price').classList.add('hidden');
+      }
+      if (offer.rooms || offer.guests) {
+        cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
+      } else {
+        cardElement.querySelector('.popup__text--capacity').classList.add('hidden');
+      }
+      if (offer.checkin || offer.checkout) {
+        cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+      } else {
+        cardElement.querySelector('.popup__text--time').classList.add('hidden');
+      }
+      if (offer.description) {
+        cardElement.querySelector('.popup__description').textContent = offer.description;
+      } else {
+        cardElement.querySelector('.popup__description').classList.add('hidden');
+      }
+      if ((offer.features).length > 0) {
+        setupFeatures(cardElement.querySelector('.popup__features'), offer);
+      } else {
+        cardElement.querySelector('.popup__features').classList.add('hidden');
+      }
+      if ((offer.photos).length > 0) {
+        setupPhotos(cardElement.querySelector('.popup__photos'), offer);
+      } else {
+        cardElement.querySelector('.popup__photos').classList.add('hidden');
+      }
 
-    return popupElement;
-  };
+      return cardElement;
+    };
 
-  generateDeals().forEach(({location: {lat, lng}}) => {
+    //Отрисовка всех маркеров
     const icon = L.icon({
       iconUrl: 'img/pin.svg',
       iconSize: [40, 40],
@@ -76,19 +113,21 @@ const activeState = function name(params) {
     });
     const markers = L.marker(
       {
-        lat,
-        lng,
+        lat : location.lat,
+        lng : location.lng,
       },
       {
         icon,
       },
     );
 
-    markers.addTo(map).bindPopup(createCustomPopup(generateDeals()));
+    markers.addTo(map).bindPopup(createCustomPopup(params));
   });
 
+  //Активируем возможность работы с формами
   includedForm(document.querySelector('.ad-form'));
   includedForm(document.querySelector('.map__filters'));
+  formsWork()
 }
 
 export {activeState}
