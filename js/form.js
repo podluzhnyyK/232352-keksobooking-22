@@ -1,5 +1,6 @@
 import {sendData} from './data.js';
 import { successModal, errorModal } from './modal.js';
+import {marker, CENTER_LAT, CENTER_LNG} from './map.js';
 
 let formPrice = document.getElementById('price');
 let timein = document.getElementById('timein');
@@ -7,9 +8,12 @@ let timeout = document.getElementById('timeout');
 let room = document.querySelector('#room_number');
 let capacity = document.querySelector('#capacity');
 let adForm = document.querySelector('.ad-form');
+const mapFilters = document.querySelector('.map__filters');
 
 //Проверяем тип жилья и цену
 const housingPrice = () => {
+  formPrice.setAttribute('min', '0');
+  formPrice.setAttribute('max', '1000000');
   document.getElementById('type').addEventListener('change', function (e) {
     if (e.target.value == 'bungalow') {
       formPrice.setAttribute('min', '0');
@@ -84,15 +88,16 @@ function formsWork() {
 }
 
 // Отправка формы
-
-const typeDefault = document.querySelector('#type').value;
-const priceDefault = document.querySelector('#price').placeholder;
-const timeInDefault = document.querySelector('#timein').value;
-const timeOutDefault = document.querySelector('#timeout').value;
-const roomDefault = document.querySelector('#room_number').value;
-const capacityDefault = document.querySelector('#capacity').value;
-const featureCheckbox = document.querySelectorAll('.feature__checkbox');
-const descriptionDefault = document.querySelector('#description').value;
+let typeDefault = document.querySelector('#type').value;
+let priceDefault = document.querySelector('#price').placeholder;
+let timeInDefault = document.querySelector('#timein').value;
+let timeOutDefault = document.querySelector('#timeout').value;
+let roomDefault = document.querySelector('#room_number').value;
+let capacityDefault = document.querySelector('#capacity').value;
+let featureCheckbox = document.querySelectorAll('.feature__checkbox');
+let descriptionDefault = document.querySelector('#description').value;
+let resetButton = document.querySelector('.ad-form__reset');
+let addressForm = document.querySelector('#address');
 
 const onFormSuccess = () => {
   document.querySelector('#title').value = '';
@@ -127,5 +132,18 @@ const setUserFormSubmit = (onSuccess) => {
     );
   });
 };
+
+// Очистить форму
+const resetAddForm = () => {
+  adForm.reset();
+  mapFilters.reset();
+  marker.setLatLng({lat: CENTER_LAT, lng: CENTER_LNG});
+  addressForm.value = `${CENTER_LAT}, ${CENTER_LNG}`;
+};
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetAddForm();
+});
 
 export {formsWork, setUserFormSubmit, onFormSuccess};

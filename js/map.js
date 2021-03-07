@@ -1,54 +1,62 @@
 import {includedForm} from './included.js';
 import {formsWork} from './form.js';
 import {stringifyOfferType, setupFeatures, setupPhotos} from './offers.js';
+import {createFilter} from './filter.js';
 
 let L = window.L;
-const activeState = function name(params) {
-  const map = L.map('map-canvas')
-    .setView({
-      lat: 35.652832,
-      lng: 139.839478,
-    }, 10);
+const SIMILAR_AD_COUNT = 10;
+const CENTER_LAT = 35.652832;
+const CENTER_LNG = 139.839478;
 
-  L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
+const map = L.map('map-canvas')
+  .setView({
+    lat: CENTER_LAT,
+    lng: CENTER_LNG,
+  }, 10);
 
-  //Кастомный маркер
-  const mainPinIcon = L.icon({
-    iconUrl: 'img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
+L.tileLayer(
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(map);
 
-  //Добавляем маркер
-  const marker = L.marker(
-    {
-      lat: 35.652832,
-      lng: 139.839478,
-    },
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
+//Кастомный маркер
+const mainPinIcon = L.icon({
+  iconUrl: 'img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
-  );
+//Добавляем маркер
+const marker = L.marker(
+  {
+    lat: CENTER_LAT,
+    lng: CENTER_LNG,
+  },
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  },
 
-  marker.addTo(map);
+);
 
-  //Добавляем координаты главного маркера
-  let address = document.querySelector('#address');
-  address.setAttribute('readonly', '');
-  marker.on('moveend', (evt) => {
-    address.value = evt.target.getLatLng();
-  });
+marker.addTo(map);
 
-  //заполняем балун
-  params.forEach(({author, offer, location}) => {
+//Добавляем координаты главного маркера
+let address = document.querySelector('#address');
+address.setAttribute('readonly', '');
+marker.on('moveend', (evt) => {
+  address.value = evt.target.getLatLng();
+});
 
+
+const markersLayer = new L.LayerGroup();
+const activeState = (params) => {
+  markersLayer.clearLayers();
+  params.filter(createFilter).slice(0, SIMILAR_AD_COUNT).forEach(({author, offer, location}) => {
+
+    //заполняем балун
     const createCustomPopup = () => {
       const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
       const cardElement = balloonTemplate.cloneNode(true);
@@ -122,7 +130,9 @@ const activeState = function name(params) {
     );
 
     markers.addTo(map).bindPopup(createCustomPopup(params));
+    markersLayer.addLayer(markers);
   });
+  markersLayer.addTo(map);
 
   //Активируем возможность работы с формами
   includedForm(document.querySelector('.ad-form'));
@@ -130,4 +140,4 @@ const activeState = function name(params) {
   formsWork()
 }
 
-export {activeState}
+export {activeState, CENTER_LAT, CENTER_LNG, marker}
