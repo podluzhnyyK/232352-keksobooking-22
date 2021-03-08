@@ -5,6 +5,9 @@ const getData = (onSuccess) => {
     .then((offers) => {
       onSuccess(offers);
     })
+    .catch(() => {
+      alert('Не удалось получить данные');
+    });
 };
 
 const sendData = (onSuccess, onError, body) => {
