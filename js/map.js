@@ -7,6 +7,7 @@ let L = window.L;
 const SIMILAR_AD_COUNT = 10;
 const CENTER_LAT = 35.652832;
 const CENTER_LNG = 139.839478;
+const markersLayer = new L.LayerGroup();
 
 const map = L.map('map-canvas')
   .setView({
@@ -41,17 +42,6 @@ const marker = L.marker(
 
 );
 
-marker.addTo(map);
-
-//Добавляем координаты главного маркера
-let address = document.querySelector('#address');
-address.setAttribute('readonly', '');
-marker.on('moveend', (evt) => {
-  address.value = evt.target.getLatLng();
-});
-
-
-const markersLayer = new L.LayerGroup();
 const activeState = (params) => {
   markersLayer.clearLayers();
   params.filter(createFilter).slice(0, SIMILAR_AD_COUNT).forEach(({author, offer, location}) => {
@@ -139,5 +129,14 @@ const activeState = (params) => {
   includedForm(document.querySelector('.map__filters'));
   formsWork()
 }
+
+marker.addTo(map);
+
+//Добавляем координаты главного маркера
+let address = document.querySelector('#address');
+marker.on('moveend', (evt) => {
+  const coords = evt.target.getLatLng();
+  address.value = `${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
+});
 
 export {activeState, CENTER_LAT, CENTER_LNG, marker}
