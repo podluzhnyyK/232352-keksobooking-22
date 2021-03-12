@@ -34,13 +34,13 @@ const getRandomArrayElement = (elemets) => {
 
 //Набираем в массив случайное количество элементов
 const getRandomArrayIndicators = (elemets) => {
-  let randomArry = [];
+  let randomArray = [];
   for( let i = 0; i < elemets.length -1; i += 1) {
     if (getRandomIntInclusive(0, 1) == true) {
-      randomArry.push(elemets[i]);
+      randomArray.push(elemets[i]);
     }
   }
-  return randomArry;
+  return randomArray;
 };
 
 const isEscEvent = (evt) => {

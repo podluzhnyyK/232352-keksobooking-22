@@ -13,10 +13,3 @@ getData((params) => {
 });
 
 setUserFormSubmit(onFormSuccess);
-// let select = document.getElementById('housing-type');
-
-// select.addEventListener('change', function(){
-//   let getValue = this.value;
-
-//   console.log( getValue );
-// });
