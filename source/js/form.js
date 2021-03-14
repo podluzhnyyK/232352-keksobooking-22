@@ -15,7 +15,7 @@ const housingPrice = () => {
   formPrice.setAttribute('min', '0');
   formPrice.setAttribute('max', '1000000');
   document.getElementById('type').addEventListener('change', function (e) {
-    if (e.target.value == 'bungalow') {
+    if (e.target.value === 'bungalow') {
       formPrice.setAttribute('min', '0');
       formPrice.setAttribute('placeholder', '0');
     } else if (e.target.value === 'flat') {
