@@ -18,13 +18,13 @@ const housingPrice = () => {
     if (e.target.value == 'bungalow') {
       formPrice.setAttribute('min', '0');
       formPrice.setAttribute('placeholder', '0');
-    } else if (e.target.value == 'flat') {
+    } else if (e.target.value === 'flat') {
       formPrice.setAttribute('min', '1000');
       formPrice.setAttribute('placeholder', '1000');
-    } else if (e.target.value == 'house') {
+    } else if (e.target.value === 'house') {
       formPrice.setAttribute('min', '5000');
       formPrice.setAttribute('placeholder', '5000');
-    } else if (e.target.value == 'palace') {
+    } else if (e.target.value === 'palace') {
       formPrice.setAttribute('min', '10000');
       formPrice.setAttribute('placeholder', '100000');
     }
@@ -34,21 +34,21 @@ const housingPrice = () => {
 // Проверяем время заезда и выезда
 const getTimeInTimeout = () => {
   timein.addEventListener('change', function (e) {
-    if (e.target.value == '12:00') {
+    if (e.target.value === '12:00') {
       timeout.value = '12:00';
-    } else if (e.target.value == '13:00') {
+    } else if (e.target.value === '13:00') {
       timeout.value = '13:00';
-    } else if (e.target.value == '14:00') {
+    } else if (e.target.value === '14:00') {
       timeout.value = '14:00';
     }
   });
 
   timeout.addEventListener('change', function (e) {
-    if (e.target.value == '12:00') {
+    if (e.target.value === '12:00') {
       timein.value = '12:00';
-    } else if (e.target.value == '13:00') {
+    } else if (e.target.value === '13:00') {
       timein.value = '13:00';
-    } else if (e.target.value == '14:00') {
+    } else if (e.target.value === '14:00') {
       timein.value = '14:00';
     }
   });
@@ -80,6 +80,7 @@ function roomsSincGuest(param1, param2) {
     }
   };
 }
+
 
 function formsWork() {
   housingPrice();

@@ -1,4 +1,4 @@
-const disabledForm = function name(params) {
+const disabledForm = (params) => {
   let adForm = params;
   adForm.classList.add('ad-form--disabled');
   let adFormAll = adForm.children;

@@ -1,11 +1,11 @@
 
 //Заменяем тип жилья из массива на текст
 const stringifyOfferType = function (params) {
-  if (params == 'flat') {
+  if (params === 'flat') {
     return 'Квартира'
-  } else if (params == 'bungalow') {
+  } else if (params === 'bungalow') {
     return 'Бунгало'
-  } else if (params == 'house') {
+  } else if (params === 'house') {
     return 'Дом'
   } else {
     return 'Дворец'
@@ -13,7 +13,7 @@ const stringifyOfferType = function (params) {
 }
 
 //Заполняем список с особенностями жилья
-const setupFeatures = function (params, key) {
+const setupFeatures = (params, key) => {
   params.textContent = '';
   for (let i = 0; i < key.features.length; i++) {
     let featureItem = document.createElement('li');
@@ -24,7 +24,7 @@ const setupFeatures = function (params, key) {
 }
 
 // Создаем картинки жилья
-const setupPhotos = function (params, key) {
+const setupPhotos = (params, key) => {
   params.textContent = '';
   for (let i = 0; i < key.photos.length; i++) {
     let imgitem = document.createElement('img');

@@ -2,11 +2,11 @@ import {includedForm} from './included.js';
 import {formsWork} from './form.js';
 import {stringifyOfferType, setupFeatures, setupPhotos} from './offers.js';
 import {createFilter} from './filter.js';
+import * as L from 'leaflet';
 
-let L = window.L;
 const SIMILAR_AD_COUNT = 10;
-const CENTER_LAT = 35.652832;
-const CENTER_LNG = 139.839478;
+const CENTER_LAT = 35.65283;
+const CENTER_LNG = 139.83947;
 const markersLayer = new L.LayerGroup();
 
 const map = L.map('map-canvas')
@@ -51,8 +51,7 @@ const activeState = (params) => {
       const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
       const cardElement = balloonTemplate.cloneNode(true);
 
-      const offerType = stringifyOfferType(offer.type);
-      cardElement.querySelector('.popup__type').textContent = offerType;
+      cardElement.querySelector('.popup__type').textContent = stringifyOfferType(offer.type);
 
       if (author.avatar) {
         cardElement.querySelector('.popup__avatar').src = author.avatar;
@@ -134,9 +133,10 @@ marker.addTo(map);
 
 //Добавляем координаты главного маркера
 let address = document.querySelector('#address');
+address.value = `${CENTER_LAT}, ${CENTER_LNG}`;
 marker.on('moveend', (evt) => {
   const coords = evt.target.getLatLng();
-  address.value = `${coords.lat.toFixed(6)}, ${coords.lng.toFixed(6)}`;
+  address.value = `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`;
 });
 
 export {activeState, CENTER_LAT, CENTER_LNG, marker}
